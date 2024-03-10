@@ -1,7 +1,10 @@
-CODE = app.py
+CODE = app
+
+
 
 run:
-	uvicorn app:app --reload
+	poetry run uvicorn app.app:app --host 0.0.0.0 --port 8000 --reload
+
 
 export_requirements:
 	poetry export --without-hashes --with dev -f requirements.txt --output requirements.txt
