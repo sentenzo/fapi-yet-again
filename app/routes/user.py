@@ -18,6 +18,14 @@ async def get_single_user(user_id: int) -> UserGet:
     return UserGet(**user.model_dump())
 
 
+@router.get("")
+async def get_all_users(limit: int = 10) -> list[UserGet]:
+    return [
+        UserGet(**user.model_dump())
+        for user in list(users_mock_db.values())[:limit]
+    ]
+
+
 @router.post("")
 async def new_user(new_user: UserCommonFields) -> User:
     new_user_id = max(users_mock_db) + 1
