@@ -15,5 +15,10 @@ async def root() -> dict | list:
     return {"message": "Hello World"}
 
 
+@app.get("/calculate")
+async def calculate(a: int, b: int) -> dict:
+    return {"result": a + b}
+
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
