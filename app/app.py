@@ -1,23 +1,13 @@
 import uvicorn
 from fastapi import FastAPI
-from fastapi.responses import FileResponse, JSONResponse
+
+from app.routes.dummy import router as dummy_router
+from app.routes.user import router as user_router
 
 app = FastAPI()
 
-
-@app.get("/", response_class=FileResponse)
-async def page0() -> FileResponse:
-    return FileResponse(path="app/static/html/page_0.html", status_code=200)
-
-
-@app.get("/hello")
-async def root() -> dict | list:
-    return {"message": "Hello World"}
-
-
-@app.get("/calculate", response_class=JSONResponse)
-async def calculate(a: int, b: int) -> JSONResponse:
-    return JSONResponse({"result": a + b}, status_code=200)
+app.include_router(user_router)
+app.include_router(dummy_router)
 
 
 if __name__ == "__main__":
